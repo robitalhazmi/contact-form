@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contact_data;
+use Auth;
 
 class ContactController extends Controller
 {
     public function __contruct()
     {
-
+      //$this->middleware('auth:guest');
     }
 
     public function getContact()
     {
-      return view('contact');
+      if (Auth::check()) {
+        return redirect('admin');
+      }
+      else {
+        return view('contact');
+      }
     }
 
     public function postContact(Request $request)
