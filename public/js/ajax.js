@@ -29,18 +29,23 @@ $(document).ready(function() {
 					}
 					else {
             $('#modal-open')[0].className = 'hold-transition login-page modal-open';
-            $('#myModal')[0].className = 'modal fade in';
-            $("#myModal").css({ 'display': "block"});
+            $('#modalLogin')[0].className = 'modal fade in';
+            $("#modalLogin").css({ 'display': "block"});
             $( "#modal-open" ).append( '<div id="modal-backdrop" class="modal-backdrop fade in"></div>');
 					}
         }
     });
   });
 
-  $('#myModal').on('click', function (e) {
-    $('#myModal')[0].className = 'modal fade';
-    $("#myModal").css({ 'display': "none"});
+  $('#modalLogin').on('click', function (e) {
+    $('#modalLogin')[0].className = 'modal fade';
+    $("#modalLogin").css({ 'display': "none"});
     $( "#modal-backdrop" ).remove();
+  });
+
+  $(".clickable-row").on('click', function() {
+    var contentPanelId = $(this).attr("id");
+    
   });
 
 });

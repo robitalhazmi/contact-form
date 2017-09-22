@@ -62,11 +62,24 @@
                 <tr>
                   <th>Nama</th>
                   <th>Judul</th>
-                  <th>Waktu Pengiriman</th>
+                  <th id="created_at">Waktu Pengiriman</th>
                 </tr>
                 </thead>
                 <tbody>
-
+                  @foreach ($contacts as $contact)
+                    <tr class="clickable-row" id="{{$contact->id}}">
+                      <td>{{$contact->name}}</td>
+                      <td>{{$contact->title}}</td>
+                      <td>{{strftime("%d %b %Y",strtotime($contact->created_at))}}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Nama</th>
+                  <th>Judul</th>
+                  <th>Waktu Pengiriman</th>
+                </tr>
                 </tfoot>
               </table>
             </div>
@@ -85,20 +98,20 @@
 
 @section('script')
   <!-- jQuery 3 -->
-  <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
-  <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- DataTables -->
-  <script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
   <!-- SlimScroll -->
-  <script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+  <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <!-- FastClick -->
-  <script src="../../bower_components/fastclick/lib/fastclick.js"></script>
+  <script src="bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
-  <script src="../../dist/js/adminlte.min.js"></script>
+  <script src="dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
-  <script src="../../dist/js/demo.js"></script>
+  <script src="dist/js/demo.js"></script>
   <!-- page script -->
   <script>
     $(function () {
@@ -119,5 +132,21 @@
   if (currentURL = 'admin') {
     $('li#admin').addClass('active')
   }
+  </script>
+
+  <script type="text/javascript">
+    $(function(){
+        $('#created_at').trigger('click');
+        $('#created_at').trigger('click');
+    });
+  </script>
+
+  <script>
+  $(document).ready(function() {
+    $(".clickable-row").click(function(event) {
+      var contentPanelId = $(this).attr("id");
+      console.log(contentPanelId);
+    });
+  });
   </script>
 @endsection

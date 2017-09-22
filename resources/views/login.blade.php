@@ -34,7 +34,7 @@
     <a href="index2.html"><b>Contact</b>Form</a>
   </div>
   <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="modalLogin" role="dialog">
       <div class="modal-dialog" id="modal-dialog">
         <div class="alert alert-danger alert-dismissible">
           <h4><i class="icon fa fa-ban"></i> Peringatan!</h4>
@@ -67,7 +67,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Masuk</button>
         </div>
         <!-- /.col -->
       </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contact_data;
 
 class AdminCOntroller extends Controller
 {
@@ -13,6 +14,8 @@ class AdminCOntroller extends Controller
 
   public function getAdmin()
   {
-    return view('admin');
+    $contacts = Contact_data::get();
+
+    return view('admin', compact('contacts'));
   }
 }
