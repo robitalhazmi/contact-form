@@ -37,6 +37,7 @@
     .table-hover tbody tr:hover {
       background-color: inherit;
     }
+    
   </style>
 @endsection
 
