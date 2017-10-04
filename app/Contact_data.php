@@ -10,4 +10,7 @@ class Contact_data extends Model
     'id', 'name', 'email', 'title', 'content'
   ];
   public $timestamps = false;
+  protected $dates = [
+        'created_at',
+    ];
 }

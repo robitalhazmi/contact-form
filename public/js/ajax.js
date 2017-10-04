@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   $('#contact-form').on('submit', function (e) {
     console.log('submit');
     e.preventDefault();
@@ -37,15 +38,25 @@ $(document).ready(function() {
     });
   });
 
-  $('#modalLogin').on('click', function (e) {
+  $('#modalLogin').on('click', function () {
     $('#modalLogin')[0].className = 'modal fade';
     $("#modalLogin").css({ 'display': "none"});
     $( "#modal-backdrop" ).remove();
   });
 
-  $(".clickable-row").on('click', function() {
-    var contentPanelId = $(this).attr("id");
-    
+  $(".clickable-row").click(function() {
+    var messageId = $(this).attr('value');
+
+    $.get('message?id='+messageId, function(data, status) {
+      $('#inbox').hide();
+      $('#read-message')[0].className = 'box box-primary';
+      $('#subject')[0].innerHTML = data.title;
+      $('#sender')[0].innerHTML = "From: "+data.email;
+      var date = $('#message-date')[0].innerHTML;
+      $('#sender').append('<span class="mailbox-read-time pull-right">'+date+'</span>');
+      $('#message-content')[0].innerHTML = data.content;
+    });
+
   });
 
 });

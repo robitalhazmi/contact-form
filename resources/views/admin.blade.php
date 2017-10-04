@@ -29,6 +29,15 @@
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style media="screen">
+    .message{
+      height: 18px;
+      overflow: hidden;
+    }
+    .table-hover tbody tr:hover {
+      background-color: inherit;
+    }
+  </style>
 @endsection
 
 @section('content')
@@ -51,41 +60,83 @@
       <div class="row">
         <div class="col-xs-12">
 
-          <div class="box">
+          <div class="box" id="inbox" style="overflow-x: hidden;">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 id="title" class="box-title">Inbox</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Nama</th>
-                  <th>Judul</th>
-                  <th id="created_at">Waktu Pengiriman</th>
+                  <th class="hide"></th>
+                  <th class="hide"></th>
+                  <th class="hide"></th>
                 </tr>
                 </thead>
                 <tbody>
                   @foreach ($contacts as $contact)
-                    <tr class="clickable-row" id="{{$contact->id}}">
-                      <td>{{$contact->name}}</td>
-                      <td>{{$contact->title}}</td>
-                      <td>{{strftime("%d %b %Y",strtotime($contact->created_at))}}</td>
+                    <tr class="clickable-row" style="cursor: pointer;" value="{{$contact->id}}">
+                      <td id="messageName" value="{{$contact->name}}">{{$contact->name}}</td>
+                      <td>
+                        <p class="message">
+                          @if ($contact->read == 0)
+                            <b>
+                              {{str_limit($contact->title, 87)}}
+                            </b>
+                             - {{$contact->content }}
+                          @endif
+                            {{str_limit($contact->title, 87)}}
+                           - {{$contact->content }}
+                         </p>
+                       </td>
+                      <td style="white-space: nowrap;" id="message-date">{{strftime("%d %b", strtotime($contact->created_at))}}. {{strftime("%Y", strtotime($contact->created_at))}}</td>
                     </tr>
                   @endforeach
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>Nama</th>
-                  <th>Judul</th>
-                  <th>Waktu Pengiriman</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
+
           </div>
           <!-- /.box -->
+          <div class="box box-primary hide" id="read-message">
+            <div class="box-header with-border">
+              <h3 class="box-title">Read Mail</h3>
+
+              <div class="box-tools pull-right">
+                <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"></i></a>
+                <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="Next"><i class="fa fa-chevron-right"></i></a>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <div class="mailbox-read-info">
+                <h3 id="subject"></h3>
+                <h5 id="sender">
+                </h5>
+              </div>
+              <!-- /.mailbox-read-info -->
+              <div class="mailbox-controls with-border text-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Delete">
+                    <i class="fa fa-trash-o"></i></button>
+                </div>
+                <!-- /.btn-group -->
+              </div>
+              <!-- /.mailbox-controls -->
+              <div class="mailbox-read-message">
+                <p id="message-content"></p>
+              </div>
+              <!-- /.mailbox-read-message -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+              <button type="button" class="btn btn-default"><i class="fa fa-trash-o"></i> Delete</button>
+            </div>
+            <!-- /.box-footer -->
+          </div>
+          <!-- /. box -->
         </div>
         <!-- /.col -->
       </div>
@@ -97,6 +148,7 @@
 @endsection
 
 @section('script')
+
   <!-- jQuery 3 -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
@@ -112,10 +164,13 @@
   <script src="dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="dist/js/demo.js"></script>
+  <script src="js/ajax.js"></script>
   <!-- page script -->
   <script>
     $(function () {
-      $('#example1').DataTable()
+      $('#example1').DataTable({
+        'ordering'    : false,
+      })
       $('#example2').DataTable({
         'paging'      : true,
         'lengthChange': false,
@@ -134,19 +189,4 @@
   }
   </script>
 
-  <script type="text/javascript">
-    $(function(){
-        $('#created_at').trigger('click');
-        $('#created_at').trigger('click');
-    });
-  </script>
-
-  <script>
-  $(document).ready(function() {
-    $(".clickable-row").click(function(event) {
-      var contentPanelId = $(this).attr("id");
-      console.log(contentPanelId);
-    });
-  });
-  </script>
 @endsection

@@ -15,6 +15,7 @@ Route::get('/', 'ContactController@getContact')->name('contact');
 Route::get('login', 'LoginController@getLogin')->name('login');
 Route::get('logout', 'LoginController@logout')->name('logout');
 Route::get('admin', 'AdminController@getAdmin')->name('admin');
+Route::get('message', 'AdminController@getMessage')->name('detail_message');
 //postData
 Route::post('contact', 'ContactController@postContact')->name('contact.post');
 Route::post('login', 'LoginController@postLogin')->name('login.post');
